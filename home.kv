@@ -1,0 +1,19 @@
+<HomeScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 10
+
+        Label:
+            text: 'Добро пожаловать!'
+            font_size: 24
+
+        Button:
+            text: 'Мои заметки'
+            on_release:
+                app.root.current = 'notes'
+
+        Button:
+            text: 'Выйти'
+            on_release:
+                app.root.current = 'login'

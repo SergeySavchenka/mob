@@ -1,0 +1,27 @@
+<LoginScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 10
+
+        Label:
+            text: 'Вход в систему'
+            font_size: 24
+
+        TextInput:
+            id: username
+            hint_text: 'Имя пользователя'
+            multiline: False
+
+        TextInput:
+            id: password
+            hint_text: 'Пароль'
+            password: True
+            multiline: False
+
+        Button:
+            text: 'Войти'
+            size_hint_y: None
+            height: 50
+            on_release:
+                root.login()

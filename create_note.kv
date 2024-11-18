@@ -1,0 +1,37 @@
+<CreateNoteScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 10
+
+        Label:
+            text: 'Новая заметка'
+            font_size: 24
+
+        TextInput:
+            id: note_title
+            hint_text: 'Заголовок'
+            multiline: False
+
+        TextInput:
+            id: note_content
+            hint_text: 'Содержание'
+            multiline: True
+
+        CheckBox:
+            id: is_public
+            size_hint_y: None
+            height: 50
+
+        Label:
+            text: 'Сделать заметку общей'
+
+        Button:
+            text: 'Сохранить'
+            on_release:
+                root.save_note()
+
+        Button:
+            text: 'Отмена'
+            on_release:
+                app.root.current = 'notes'
