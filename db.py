@@ -23,8 +23,19 @@ class Database:
         return self.cursor.fetchone()
 
     def execute(self, query, params=None):
-        self.cursor.execute(query, params or ())
-        self.connection.commit()
+        try:
+            self.cursor.execute(query, params or ())
+            self.connection.commit()
+        except Exception as e:
+            print(f"Ошибка выполнения запроса: {e}")
+            self.connection.rollback()
+
+    def log_action(self, user_id, action_type, note_id=None):
+        query = """
+            INSERT INTO logs (user_id, action_type, note_id)
+            VALUES (%s, %s, %s)
+        """
+        self.execute(query, (user_id, action_type, note_id))
 
     @staticmethod
     def hash_password(password):
