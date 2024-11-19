@@ -14,6 +14,11 @@
                 app.root.current = 'notes'
 
         Button:
+            text: 'Сменить пароль'
+            on_release:
+                app.root.current = 'user_password'
+
+        Button:
             text: 'Выйти'
             on_release:
                 app.root.current = 'login'

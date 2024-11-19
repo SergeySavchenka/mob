@@ -1,11 +1,11 @@
-<CreateNoteScreen>:
+<EditNoteScreen>:
     BoxLayout:
         orientation: 'vertical'
         padding: 20
         spacing: 10
 
         Label:
-            text: 'Новая заметка'
+            text: 'Редактирование заметки'
             font_size: 24
 
         TextInput:
@@ -18,19 +18,10 @@
             hint_text: 'Содержание'
             multiline: True
 
-        TextInput:
-            id: note_password
-            hint_text: 'Пароль для заметки (необязательно)'
-            password: True
-            multiline: False
-            disabled: True if is_public.active else False
-
-        TextInput:
-            id: note_password_confirm
-            hint_text: 'Подтвердите пароль'
-            password: True
-            multiline: False
-            disabled: True if is_public.active else False
+        Button:
+            text: 'Изменить пароль'
+            on_release:
+                root.change_password()
 
         CheckBox:
             id: is_public
@@ -46,6 +37,11 @@
                 root.save_note()
 
         Button:
+            text: 'Удалить'
+            on_release:
+                root.del_note()
+
+        Button:
             text: 'Отмена'
             on_release:
-                app.root.current = 'notes'
+                root.cancel_edit()
