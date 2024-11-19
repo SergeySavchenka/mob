@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Ноя 19 2024 г., 00:55
+-- Время создания: Ноя 20 2024 г., 00:46
 -- Версия сервера: 5.6.51
 -- Версия PHP: 8.0.22
 
@@ -30,19 +30,10 @@ SET time_zone = "+00:00";
 CREATE TABLE `logs` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `action` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `action_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `note_id` int(11) DEFAULT NULL,
   `timestamp` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Дамп данных таблицы `logs`
---
-
-INSERT INTO `logs` (`id`, `user_id`, `action`, `note_id`, `timestamp`) VALUES
-(1, 1, 'Создал заметку', 2, '2024-11-18 20:05:49'),
-(2, 2, 'Изменил заметку', 1, '2024-11-18 20:05:49'),
-(3, 3, 'Удалил заметку', NULL, '2024-11-18 20:05:49');
 
 -- --------------------------------------------------------
 
@@ -66,9 +57,9 @@ CREATE TABLE `notes` (
 --
 
 INSERT INTO `notes` (`id`, `title`, `content`, `created_at`, `user_id`, `is_public`, `is_visible`, `password`) VALUES
-(1, 'Личная заметка 1', 'Секретное содержание', '2024-11-18 20:05:49', 2, 0, 1, '1b0786a88f5a9ac9e91ff871c796bf124238936d1917458d2af510dc66806cb3'),
-(2, 'Общая заметка 1', 'Это общедоступная заметка', '2024-11-18 20:05:49', 1, 1, 1, NULL),
-(3, 'Общая заметка 2', 'Эта заметка скрыта', '2024-11-18 20:05:49', 1, 1, 0, NULL);
+(23, 'admin_private', 'pr', '2024-11-19 20:17:08', 1, 0, 1, '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b'),
+(24, 'user1_private', 'pr', '2024-11-19 20:17:39', 2, 0, 1, '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b'),
+(25, 'user2_private', 'pr', '2024-11-19 20:18:13', 3, 0, 1, '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b');
 
 -- --------------------------------------------------------
 
@@ -89,9 +80,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password_hash`, `role`, `created_at`) VALUES
-(1, 'admin', '6d4525c2a21f9be1cca9e41f3aa402e0765ee5fcc3e7fea34a169b1730ae386e', 'admin', '2024-11-18 20:05:49'),
+(1, 'admin', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', 'admin', '2024-11-18 20:05:49'),
 (2, 'user1', 'a3163b169544206384021627139043454dd8c7d926746f6d01a11fa904d90c03', 'user', '2024-11-18 20:05:49'),
-(3, 'user2', '5abfac4ec9f3459e7fa7c22476615fba9f2e98125c3d38fda867993d30735cd8', 'user', '2024-11-18 20:05:49');
+(3, 'user2', '5abfac4ec9f3459e7fa7c22476615fba9f2e98125c3d38fda867993d30735cd8', 'user', '2024-11-18 20:05:49'),
+(4, 'user3', 'b226b33217368409404bbf8872b5c277579d14472114ca1c5a4740edcd46c5d7', 'user', '2024-11-19 20:35:02');
 
 --
 -- Индексы сохранённых таблиц
@@ -127,19 +119,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT для таблицы `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
 
 --
 -- AUTO_INCREMENT для таблицы `notes`
 --
 ALTER TABLE `notes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц
@@ -149,8 +141,7 @@ ALTER TABLE `users`
 -- Ограничения внешнего ключа таблицы `logs`
 --
 ALTER TABLE `logs`
-  ADD CONSTRAINT `logs_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `logs_ibfk_2` FOREIGN KEY (`note_id`) REFERENCES `notes` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `logs_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
 -- Ограничения внешнего ключа таблицы `notes`
