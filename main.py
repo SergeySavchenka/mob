@@ -6,9 +6,12 @@ from kivy.uix.popup import Popup
 from hashlib import sha256
 from db import Database
 from kivy.lang import Builder
+from kivy.core.window import Window
 
 
 class LoginScreen(Screen):
+    Window.size = (400, 600)  # Ширина 800px, высота 600px
+
     def login(self):
         username = self.ids.username.text
         password = self.ids.password.text
